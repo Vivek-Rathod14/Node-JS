@@ -1,0 +1,32 @@
+body {
+  font-family: Arial;
+  background: #f4f4f4;
+}
+
+.todo-container {
+  width: 300px;
+  margin: 100px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+input {
+  width: 70%;
+  padding: 5px;
+}
+
+button {
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+li {
+  list-style: none;
+  margin-top: 10px;
+}
+
+.done {
+  text-decoration: line-through;
+  color: gray;
+}
