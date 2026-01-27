@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Example</title>
+</head>
+
+<body style="background-color: rgb(73, 42, 95);">
+    <form action="/addData" method="post" style="display: flex; flex-wrap: wrap; ">
+        <input type="text" name="firstName" placeholder="Enter student firstName"><br>
+        <input type="text" name="lastName" placeholder="Enter student lastName"><br>
+        <input type="number" name="age" placeholder="Enter student age"><br>
+        <input type="email" name="email" placeholder="Enter student email"><br>
+        <input type="text" name="skill" placeholder="Enter student skill"><br>
+        <input type="number" name="mobile" placeholder="Enter student mobile"><br>
+        <button type="submit">Save</button>
+    </form>
+
+    <hr>
+    <table border="1px solid white">
+        <thead>
+            <tr>
+                <th>first Name</th>
+                <th>last name</th>
+                <th>age</th>
+                <th>email</th>
+                <th>skill</th>
+                <th>mobile</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% student.forEach(function(e){ %>
+                <tr>
+                    <td>
+                        <%= e.firstName %>
+                    </td>
+                    <td>
+                        <%= e.lastName %>
+                    </td>
+                    <td>
+                        <%= e.age %>
+                    </td>
+                    <td>
+                        <%= e.email %>
+                    </td>
+                    <td>
+                        <%= e.skill %>
+                    </td>
+                    <td>
+                        <%= e.mobile %>
+                    </td>   `
+                    <td>
+                            <a href="/delete-data/<%= e.id %>">delete</a>
+                    </td>
+                    <td>
+                            <a href="/update-data/<%= e.id %>">update</a>
+                    </td>
+                    
+                </tr>
+                <% }) %>
+
+
+        </tbody>
+
+    </table>
+
+</body>
+
+</html>
