@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
 app.get('/:page', (req, res) => {
     res.render(req.params.page, (err, html) => {
         if (err) {
-            res.status(404).render('error-500');
+            res.status(404).send('Page not found');
         } else {
             res.send(html);
         }
@@ -20,5 +20,5 @@ app.get('/:page', (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+    console.log('Server running on http://localhost:' + PORT);
 });
