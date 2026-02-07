@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Book</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #ffffff;
+            color: #000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        .edit-container {
+            width: 100%;
+            max-width: 520px;
+            border: 1px solid #000;
+            padding: 32px;
+        }
+
+        h1 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 28px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #000;
+            background: #fff;
+            margin-bottom: 20px;
+        }
+
+        input:focus {
+            outline: none;
+            background: #000;
+            color: #fff;
+        }
+        .actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        button,
+        a {
+            flex: 1;
+            padding: 12px 0;
+            font-size: 14px;
+            font-weight: 500;
+            text-align: center;
+            text-decoration: none;
+            border: 1px solid #000;
+            cursor: pointer;
+        }
+
+        button {
+            background: #000;
+            color: #fff;
+        }
+
+        button:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        .cancel {
+            background: #fff;
+            color: #000;
+        }
+
+        .cancel:hover {
+            background: #000;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="edit-container">
+        <h1>Edit Book</h1>
+
+        <form action="/edit/<%= book._id %>" method="POST">
+
+            <label>Book Name</label>
+            <input type="text" name="bookname" value="<%= book.bookname %>" required>
+
+            <label>Author</label>
+            <input type="text" name="author" value="<%= book.author %>" required>
+
+            <label>Publisher</label>
+            <input type="text" name="publisher" value="<%= book.publisher %>" required>
+
+            <label>Price</label>
+            <input type="number" name="price" value="<%= book.price %>" required>
+
+            <label>Category</label>
+            <input type="text" name="category" value="<%= book.category %>" required>
+
+            <label>Book Image URL</label>
+            <input type="text" name="img" value="<%= book.img %>" required>
+
+            <div class="actions">
+                <button type="submit">UPDATE</button>
+                <a href="/" class="cancel">CANCEL</a>
+            </div>
+
+        </form>
+    </div>
+
+</body>
+</html>

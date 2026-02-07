@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 48px;
+            background: #ffffff;
+            color: #000000;
+        }
+
+        h1, h2 {
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        h2 {
+            margin-top: 60px;
+        }
+
+
+        .form-wrapper {
+            max-width: 520px;
+            border: 1px solid #000;
+            padding: 28px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #000;
+            background: #fff;
+            margin-bottom: 18px;
+            font-size: 14px;
+        } 
+
+        input:focus {
+            outline: none;
+            background: #000;
+            color: #fff;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #000;
+            color: #fff;
+            border: 1px solid #000;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #fff;
+            color: #000;
+        }
+
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 32px;
+        }
+
+
+        .book-card {
+            border: 1px solid #000;
+            padding: 16px;
+            transition: transform 0.2s ease;
+        }
+
+        .book-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .book-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border: 1px solid #000;
+            margin-bottom: 12px;
+        }
+
+        .book-card h3 {
+            font-size: 16px;
+            margin: 8px 0;
+            font-weight: 600;
+        }
+
+        .book-card p {
+            font-size: 13px;
+            margin: 4px 0;
+            line-height: 1.4;
+        }
+
+        .price {
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .actions a {
+            flex: 1;
+            text-align: center;
+            padding: 6px 0;
+            font-size: 13px;
+            text-decoration: none;
+            border: 1px solid #000;
+            color: #000;
+        }
+
+        .actions a:hover {
+            background: #000;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Book Management</h1>
+
+    <div class="form-wrapper">
+        <form action="/bookdata" method="post">
+            <label>Book Name</label>
+            <input type="text" name="bookname" required>
+
+            <label>Author</label>
+            <input type="text" name="author" required>
+
+            <label>Publisher</label>
+            <input type="text" name="publisher" required>
+
+            <label>Price</label>
+            <input type="number" name="price" required>
+
+            <label>Category</label>
+            <input type="text" name="category" required>
+
+            <label>Book Image URL</label>
+            <input type="text" name="img" required>
+
+            <button type="submit">ADD BOOK</button>
+        </form>
+    </div>
+
+    <h2>All Books</h2>
+
+    <div class="card-container">
+        <% books.forEach(book => { %>
+            <div class="book-card">
+                <img src="<%= book.img %>" alt="Book Image">
+
+                <h3><%= book.bookname %></h3>
+                <p>Author: <%= book.author %></p>
+                <p>Publisher: <%= book.publisher %></p>
+                <p>Category: <%= book.category %></p>
+
+                <div class="price">₹ <%= book.price %></div>
+
+                <div class="actions">
+                    <a href="/edit/<%= book._id %>">EDIT</a>
+                    <a href="/delete/<%= book._id %>">DELETE</a>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+
+</body>
+</html>
