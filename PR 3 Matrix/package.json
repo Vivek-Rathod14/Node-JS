@@ -4,8 +4,8 @@
   "description": "",
   "main": "MatrixServer.js",
   "scripts": {
-    "start": "node MatrixServer.js",
-    "dev": "nodemon MatrixServer.js"
+    "start": "node Server.js",
+    "dev": "nodemon Server.js"
   },
   "keywords": [],
   "author": "",
