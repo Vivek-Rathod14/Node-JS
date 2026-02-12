@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Edit movie</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+    * {
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+    }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+        background: #0f0f0f;
+        color: #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .edit-container {
+        width: 100%;
+        max-width: 550px;
+        background: #1c1c1c;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    h1 {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 30px;
+        text-align: center;
+        color: #e50914;
+    }
+
+    label {
+        display: block;
+        font-size: 13px;
+        margin-bottom: 6px;
+        color: #ccc;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        font-size: 14px;
+        border: 1px solid #333;
+        background: #2a2a2a;
+        color: #fff;
+        margin-bottom: 18px;
+        border-radius: 6px;
+        transition: 0.3s;
+    }
+
+    input:focus {
+        outline: none;
+        border-color: #e50914;
+        background: #222;
+    }
+
+    .actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 10px;
+    }
+
+    button,
+    .cancel {
+        flex: 1;
+        padding: 12px 0;
+        font-size: 14px;
+        font-weight: 600;
+        border-radius: 6px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    button {
+        background: #e50914;
+        border: none;
+        color: #fff;
+    }
+
+    button:hover {
+        background: #b20710;
+    }
+
+    .cancel {
+        background: transparent;
+        border: 1px solid #555;
+        color: #ccc;
+    }
+
+    .cancel:hover {
+        background: #333;
+        color: #fff;
+    }
+</style>
+
+</head>
+
+<body>
+
+    <div class="edit-container">
+        <h1>Edit Movie</h1>
+
+        <form action="/edit/<%= movie._id %>" method="POST">
+
+            <label>Movie Name</label>
+            <input type="text" name="moviename" value="<%= movie.moviename %>" required>
+
+            <label>Author</label>
+            <input type="text" name="author" value="<%= movie.author %>" required>
+
+            <label>Publisher</label>
+            <input type="text" name="publisher" value="<%= movie.publisher %>" required>
+
+            <label>Price</label>
+            <input type="number" name="price" value="<%= movie.price %>" required>
+
+            <label>Category</label>
+            <input type="text" name="category" value="<%= movie.category %>" required>
+
+            <label>Movie Image URL</label>
+            <input type="text" name="img" value="<%= movie.img %>" required>
+
+            <div class="actions">
+                <button type="submit">UPDATE</button>
+                <a href="/" class="cancel">CANCEL</a>
+            </div>
+
+        </form>
+    </div>
+
+</body>
+
+</html>

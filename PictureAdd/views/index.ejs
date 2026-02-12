@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="/picdata" method="post" enctype="multipart/form-data" >
+        <label>First Name</label>
+        <input type="text" name="firstname" required><br>
+
+        <label>Last Name</label>
+        <input type="text" name="lastname" required><br>
+
+        <label>Img</label>
+        <input type="file" name="img" required><br>
+
+        <button type="submit">Add</button>
+    </form>
+
+    <hr>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>firstname</th>
+                <th>lastname</th>
+                <th>img</th>
+                <th>action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% pic.forEach((p)=>{ %>
+                <tr>
+                    <td>
+                        <%= p.firstname %>
+                    </td>
+                    <td>
+                        <%= p.lastname %>
+                    </td>
+                    <td>
+                            <img src="/uploads/<%= p.img %>" width="80">
+                    </td>
+                    <td>
+                            <a href="/delete/<%= p._id %>">delete</a>
+                    </td>
+
+                </tr>
+                <% }) %>
+        </tbody>
+    </table>
+
+</body>
+
+</html>

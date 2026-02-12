@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Movies</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px;
+            background: #0f0f0f;
+            color: #ffffff;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            margin-top: 60px;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .form-wrapper {
+            max-width: 520px;
+            background: #1c1c1c;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        label {
+            font-size: 13px;
+            margin-bottom: 6px;
+            display: block;
+            color: #ccc;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            background: #2a2a2a;
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 6px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #e50914;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #e50914;
+            border: none;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #b20710;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .movie-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .movie-card:hover {
+            transform: scale(1.05);
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            border-radius: 10px;
+            display: block;
+        }
+        .movie-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+        }
+
+        .movie-info h3 {
+            margin: 0 0 5px;
+            font-size: 16px;
+        }
+
+        .movie-info p {
+            margin: 2px 0;
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        .price {
+            font-weight: 600;
+            margin-top: 6px;
+            color: #e50914;
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .actions a {
+            flex: 1;
+            text-align: center;
+            padding: 5px 0;
+            font-size: 12px;
+            text-decoration: none;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            transition: 0.3s;
+        }
+
+        .actions a:hover {
+            background: #e50914;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Movie Management</h1>
+
+    <div class="form-wrapper">
+        <form action="/Moviedata" method="post">
+            <label>Movie Name</label>
+            <input type="text" name="moviename" required>
+
+            <label>Author</label>
+            <input type="text" name="author" required>
+
+            <label>Publisher</label>
+            <input type="text" name="publisher" required>
+
+            <label>Price</label>
+            <input type="number" name="price" required>
+
+            <label>Category</label>
+            <input type="text" name="category" required>
+
+            <label>Movie Image URL</label>
+            <input type="text" name="img" required>
+
+            <button type="submit">ADD MOVIE</button>
+        </form>
+    </div>
+
+    <h2>All Movies</h2>
+
+    <div class="card-container">
+        <% movies.forEach(movie=> { %>
+            <div class="movie-card">
+                <img src="<%= movie.img %>" alt="movie Image">
+
+                <div class="movie-info">
+                    <h3>
+                        <%= movie.moviename %>
+                    </h3>
+                    <p>Author: <%= movie.author %>
+                    </p>
+                    <p>Publisher: <%= movie.publisher %>
+                    </p>
+                    <p>Category: <%= movie.category %>
+                    </p>
+
+                    <div class="price">₹ <%= movie.price %>
+                    </div>
+
+                    <div class="actions">
+                        <a href="/edit/<%= movie._id %>">EDIT</a>
+                        <a href="/delete/<%= movie._id %>">DELETE</a>
+                    </div>
+                </div>
+            </div>
+
+            <% }) %>
+    </div>
+
+</body>
+
+</html>
