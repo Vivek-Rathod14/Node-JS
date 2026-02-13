@@ -5,6 +5,7 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 const dbconnect = require("./config/dbconnect")
 const adminSchema = require("./model/admin.model")
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 dbconnect();
 // body parser middleware (important)
