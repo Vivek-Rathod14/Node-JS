@@ -1,0 +1,96 @@
+<%- include('../header') %>
+    <div class="page-wrapper">
+
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-12 d-flex no-block align-items-center">
+                    <div class="ml-auto text-right">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Library</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="">
+
+            <div class="col-12 d-flex ">
+                <div class="col-md-6">
+                    <div class="card">
+                        <form class="form-horizontal" action="/viewBlog" method="get" enctype="multipart/form-data">
+                            <div class="card-body d-flex justify-content-center align-items-center">
+                                <div class="form-group row d-flex justify-content-center align-items-center">
+                                    <label for="lname"
+                                        class="col-sm-3 text-right control-label col-form-label">Search</label>
+                                    <div class="col-sm-9">
+                                        <input type="search" class="form-control" id="lname" placeholder="Search"
+                                            name="search">
+                                    </div>
+
+                                </div>
+                                <div class="p-0">
+                                    <div class="card-body p-0">
+                                        <button type="submit" class="btn btn-primary">Search</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <div class="row">
+                <% if (productData && productData.length> 0) { %>
+
+                    <% productData.map((e)=> { %>
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <div class="card h-100 shadow-sm">
+
+                           <img src="<%= e.categoreyId && e.categoreyId.img ? '/uploads/' + e.categoreyId.img : '/images/no-img.png' %>" class="card-img-top">
+
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">
+                                        <%= e.categorey %>
+                                    </h5>
+
+                                    <p class="card-text text-muted">
+                                        <%= e.subcategorey %>
+                                    </p>
+
+                                    <p class="text-muted">
+                                        <strong>Category:</strong>
+                                        <%= e.extracategorey %>
+                                    </p>
+
+                                    <p class="text-muted">
+                                        <strong>Author:</strong>
+                                        <%= e.description %>
+                                    </p>
+
+                                    <a href="/viewBlogDelete/<%= e._id %>" class="btn btn-danger btn-sm mt-2">
+                                        Delete
+                                    </a>
+                                    <a href="/editBlog/<%= e._id %>" class="btn btn-warning btn-sm mt-2">
+                                        Edit
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                        <% }) %>
+
+                            <% } else { %>
+                                <div class="col-12 text-center">
+                                    <h4>No Blogs Found</h4>
+                                </div>
+                                <% } %>
+            </div>
+
+            <%- include('../footer') %>

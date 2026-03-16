@@ -1,0 +1,65 @@
+<%- include('../header') %>
+    <div class="page-wrapper">
+
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-12 d-flex no-block align-items-center">
+                    <h4 class="page-title">Tables</h4>
+                    <div class="ml-auto text-right">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Library</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title m-b-0">Static Table With Checkboxes</h5>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Sub Categorey Name</th>
+                                        <th>Extra Categorey Name</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="customtable">
+                                    <tr>
+                                        <% extracategoreyData.forEach(function(v){ %>
+                                    <tr>
+                                        <td>
+                                            <%= v.subcategoreyId ? v.subcategoreyId.subcategorey : "No Id" %>
+                                        </td>
+                                        <td>
+                                            <%= v.extracategorey %>
+
+                                        </td>
+
+                                        <td><a href="/extracategorey/extracategoreyDelete/<%= v._id %>"
+                                                class="text-danger">Delete</a></td>
+                                        <td><a href="/extracategorey/extracategoreyEdit/<%= v._id %>"
+                                                class="text-warning">Edit</a></td>
+                                    </tr>
+                                    <% }) %>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <%- include('../footer') %>

@@ -48,14 +48,6 @@ exports.logout = (req, res) => {
         });
     });
 };
-exports.forgotPassword = async (req, res) => {
-    try {
-        return res.render("./admin/forgotPassoword");
-    } catch (error) {
-        console.log(error);
-        res.redirect("/");
-    }
-}
 exports.blog = async (req, res) => {
     try {
         return res.render("./blog");

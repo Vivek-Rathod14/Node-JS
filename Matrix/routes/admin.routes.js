@@ -1,6 +1,6 @@
 const express = require("express");
-const { addAdminPage, addAdmin, addView, deleteAdmin, editAdminPage, Chnage } = require("../controller/admin.controller");
-const upload = require("../middleware/multer");  
+const { addAdminPage, addAdmin, addView, deleteAdmin, editAdminPage, Chnage, forgotPassword, Otp, OtpPage } = require("../controller/admin.controller");
+const upload = require("../middleware/multer");
 const passport = require("../controller/localStregert");
 
 const routes = express.Router();
@@ -13,4 +13,9 @@ routes.get("/edit/:id", editAdminPage);
 routes.post("/edit/:id", passport.checkAuthenticate, Chnage);
 
 
+
+
+routes.get("/forgotPassword", forgotPassword);
+routes.post("/sendOtp", Otp);
+routes.get("/otp", OtpPage);
 module.exports = routes;

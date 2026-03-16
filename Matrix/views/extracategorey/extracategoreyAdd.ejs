@@ -1,0 +1,122 @@
+<%- include('../header') %>
+    <div class="page-wrapper">
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-12 d-flex no-block align-items-center">
+                    <h4 class="page-title">Form Basic</h4>
+                    <div class="ml-auto text-right">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Library</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+            <!-- ============================================================== -->
+            <!-- Start Page Content -->
+            <!-- ============================================================== -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <form class="form-horizontal" action="/extracategorey/extrasubcategoreyAdd" method="post">
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 text-right control-label col-form-label">
+                                        Category
+                                    </label>
+
+                                    <div class="col-sm-9">
+                                        <select name="categoreyId" class="form-control" id="categoreyId">
+
+                                            <option value="">Select Category</option>
+
+                                            <% categoreyData.map((e)=>{ %>
+
+                                                <option value="<%= e._id %>">
+                                                    <%= e.categorey %>
+                                                </option>
+
+                                                <% }) %>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 text-right control-label col-form-label">
+                                        Sub Category
+                                    </label>
+
+                                    <div class="col-sm-9">
+                                        <select name="subcategoreyId" class="form-control" id="subCategoreyId">
+
+                                            <option value="">Select Sub Category</option>
+
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="fname" class="col-sm-3 text-right control-label col-form-label">Extra
+                                        Categorey</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="fname" placeholder="Categorey"
+                                            name="extracategorey">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border-top">
+                                <div class="card-body">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <%- include('../footer') %>
+            <script>
+                let categoryId = document.getElementById('categoreyId');
+                let subCategoreyId = document.getElementById('subCategoreyId');
+
+                categoryId.addEventListener('change', () => {
+
+                    let id = categoryId.value;
+                    console.log("Selected Category ID:", id);
+
+                    fetch(`/extracategorey/subcategorey/${id}`)
+                        .then(res => res.json())
+                        .then(data => {
+
+                            console.log("API Response:", data);
+
+                            let result = data.data;
+
+                            subCategoreyId.innerHTML = `<option value="">Select Sub Category</option>`;
+
+                            result.forEach(res => {
+                                let option = document.createElement('option');
+                                option.innerHTML = res.subcategorey;
+                                option.value = res._id;
+                                subCategoreyId.append(option);
+                            });
+
+                        })
+                        .catch(err => console.log(err));
+
+                });
+            </script>

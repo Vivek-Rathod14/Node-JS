@@ -1,6 +1,6 @@
 const express = require("express");
 const {
-    login, dashboard, loginData, logout, forgotPassword, blog, blogDataView, blogDelete, OneBlogView, editBlog, formBlog,
+    login, dashboard, loginData, logout, blog, blogDataView, blogDelete, OneBlogView, editBlog, formBlog,
     blogFrom
 } = require("../controller/index.controller");
 
@@ -33,8 +33,13 @@ routes.post("/editBlog/:id", passport.checkAuthenticate, upload.single("img"), f
 routes.get("/OneBlogView/:id", passport.checkAuthenticate, OneBlogView);
 
 routes.get("/logout", logout);
-routes.get("/forgotPassword", forgotPassword);
+
+
 
 routes.use("/admin", require("./admin.routes"));
+routes.use("/categorey", require("./categorey.routes"));
+routes.use("/subcategorey", require("./subcategorey.routes"));
+routes.use("/extracategorey",require("./extracategorey.routes"))
+routes.use("/product",require("./product.routes"))
 
 module.exports = routes;

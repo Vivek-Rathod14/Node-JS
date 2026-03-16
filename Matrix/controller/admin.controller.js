@@ -1,5 +1,6 @@
 const Admin = require("../model/admin.model");
 const upload = require("../middleware/multer")
+const sendMail = require("../config/mailConfig")
 const bcrypt = require("bcrypt");
 const path = require("path");
 const fs = require("fs")
@@ -93,6 +94,50 @@ exports.Chnage = async (req, res) => {
         console.log(admin);
         res.redirect("/admin/view-admin");
 
+
+    } catch (error) {
+        console.log(error);
+        res.redirect("/");
+    }
+};
+
+exports.forgotPassword = async (req, res) => {
+    try {
+        return res.render("admin/forgotPassword");
+    } catch (error) {
+        console.log(error);
+        res.redirect("/");
+    }
+};
+
+exports.OtpPage = async (req, res) => {
+    try {
+        return res.render("admin/Otp");
+    } catch (error) {
+        console.log(error);
+        res.redirect("/");
+    }
+};
+exports.Otp = async (req, res) => {
+    try {
+
+        const { email } = req.body;
+
+        const admin = await Admin.findOne({ email: email });
+
+        if (!admin) {
+            return res.redirect("/admin/forgotPassword");
+        }
+
+        const otp = Math.floor(1000 + Math.random() * 9000);
+
+        await sendMail(
+            email,
+            "OTP Verification",
+            `<h2>Your OTP is ${otp}</h2>`
+        );
+
+        res.redirect("/admin/otp");
 
     } catch (error) {
         console.log(error);

@@ -1,6 +1,4 @@
-const nodemailer = require("nodemailer")
-const Admin = require("../model/admin.model")
-
+const nodemailer = require("nodemailer");
 
 const tarnsporter = nodemailer.createTransport({
     secure: true,
@@ -10,14 +8,22 @@ const tarnsporter = nodemailer.createTransport({
         user: "rathodvivek5500@gmail.com",
         pass: "jkhqecybixducnby"
     }
-})
-return tarnsporter;
+});
 
-function sendMail(to,sub,mes){
-    tarnsporter({
-        to:to,
-        subject:sub,
-        html:msg
-    });
+async function sendMail(to, sub, mes) {
+    try {
+        await tarnsporter.sendMail({
+            from: "rathodvivek5500@gmail.com",
+            to: to,
+            subject: sub,
+            html: mes
+        });
+
+        console.log("Email Sent ✅");
+
+    } catch (error) {
+        console.log("Mail Error ❌", error);
+    }
 }
-sendMail("rathodvivek5500@gmail.com","Hello Gusy", "hello Budy");
+
+module.exports = sendMail;   // 🔥 THIS LINE IS MUST
