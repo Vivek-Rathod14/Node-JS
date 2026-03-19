@@ -1,5 +1,5 @@
 const express = require("express");
-const { productPage, subcategoreyData, extracategoreyData, productAdd, productViewPage } = require("../controller/product.controller");
+const { productPage, subcategoreyData, extracategoreyData, productAdd, productViewPage, viewProductDelete ,editProductPage, productEdit, productEditsubcategorey,} = require("../controller/product.controller");
 
 const routes = express.Router();
 
@@ -9,6 +9,10 @@ routes.get("/extracategorey/:id", extracategoreyData);
 
 routes.post("/productAdd", productAdd);
 routes.get("/productViewPage", productViewPage);
+routes.get("/viewProductDelete/:id", viewProductDelete);
+routes.get("/editProduct/:id", editProductPage);
+routes.post("/productEdit/:id", productEdit);
 
+routes.get("/productEditsubcategorey/:id", productEditsubcategorey);
 
 module.exports = routes;

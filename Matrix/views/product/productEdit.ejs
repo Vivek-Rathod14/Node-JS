@@ -1,0 +1,169 @@
+<%- include('../header') %>
+    <div class="page-wrapper">
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-12 d-flex no-block align-items-center">
+                    <h4 class="page-title">Form Basic</h4>
+                    <div class="ml-auto text-right">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Library</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+            <!-- ============================================================== -->
+            <!-- Start Page Content -->
+            <!-- ============================================================== -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <form action="/product/productEdit/<%= productData._id %>" method="post">
+                            <div class="card-body">
+
+                                <div class="form-group row">
+                                    <label for="fname"
+                                        class="col-sm-3 text-right control-label col-form-label">Categorey</label>
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-9">
+                                            <select name="categorey" class="form-control">
+                                                <% categoreyData.map((c)=> { %>
+                                                    <option value="<%= c._id %>" <%=productData.categoreyId &&
+                                                        productData.categoreyId._id.toString()===c._id.toString()
+                                                        ? "selected" : "" %>>
+                                                        <%= c.categorey %>
+                                                    </option>
+                                                    <% }) %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="fname" class="col-sm-3 text-right control-label col-form-label">Sub
+                                        Categorey</label>
+                                    <div class="col-sm-9">
+                                        <select name="subCategorey" class="form-control" id="subCategoreyId" required>
+                                            <option value="">Select Option</option>
+                                             <% subcategoreyData.map((c)=> { %>
+                                                    <option value="<%= c._id %>" <%=productData.subcategoreyId &&
+                                                        productData.subcategoreyId._id.toString()===c._id.toString()
+                                                        ? "selected" : "" %>>
+                                                        <%= c.subcategorey %>
+                                                    </option>
+                                                    <% }) %>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="fname" class="col-sm-3 text-right control-label col-form-label">Extra
+                                        Categorey</label>
+                                    <div class="col-sm-9">
+                                        <select name="extraCategorey" class="form-control" id="extraCategoreyId"
+                                            required>
+                                            <% extracategoreyData.map((e)=>{ %>
+                                                  <option value="<%= e._id %>" <%= productData.extracategoreyId && productData.extracategoreyId._id.toString() === e._id.toString() ? "selected" : ""  %>><%= e.extracategorey %></option>  
+                                            <% }) %>
+                                            <option value="">Select Option</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="fname"
+                                        class="col-sm-3 text-right control-label col-form-label">Description</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="fname" placeholder="Categorey"
+                                            name="description" value="<%=  productData.description %>" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="fname"
+                                        class="col-sm-3 text-right control-label col-form-label">Quantity</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="fname" placeholder="Categorey"
+                                            name="quantity" value="<%=  productData.quantity %>" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="fname"
+                                        class="col-sm-3 text-right control-label col-form-label">Price</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="fname" placeholder="Categorey"
+                                            name="price" value="<%=  productData.price %>" required>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="border-top">
+                                <div class="card-body">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <%- include('../footer') %>
+
+            <script>
+                const categoreyId = document.querySelector("#categoreyId");
+                const subCategoreyId = document.querySelector("#subCategoreyId");
+                const extraCategoreyId = document.querySelector("#extraCategoreyId");
+
+                categoreyId.addEventListener("change", () => {
+                    const id = categoreyId.value
+                    console.log(id);
+                    subCategoreyId.innerHTML = '<option value="">Select Option</option>'
+                    extraCategoreyId.innerHTML = '<option value="">Select Option</option>'
+                    fetch(`/product/productEditsubcategorey/${id}`)
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data);
+
+                            const result = data.data
+                            result.map((res) => {
+                                const option = document.createElement("option");
+                                option.innerHTML = res.subcategorey
+                                option.value = res._id
+                                subCategoreyId.append(option)
+                            })
+                        })
+                })
+
+                subCategoreyId.addEventListener("change", () => {
+                    const id = subCategoreyId.value
+                    console.log(id);
+                    extraCategoreyId.innerHTML = '<option value="">Select Option</option>'
+                    fetch(`/product/extracategorey/${id}`)
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data);
+                            const result = data.data;
+                            result.map((res) => {
+                                const option = document.createElement("option")
+                                option.innerHTML = res.extracategorey
+                                option.value = res._id
+                                extraCategoreyId.append(option)
+                            })
+
+                        })
+
+                })
+            </script>

@@ -73,16 +73,7 @@ exports.subcategoreyEditPage = async (req, res) => {
         return res.redirect("/")
     }
 }
-exports.subcategoreyEditPage = async (req, res) => {
-    try {
-        const subId = req.params.id;
-        const editSubcategorey = await subcategorey.findById(subId)
-        res.render("subcategorey/subcategoreyEdit", { editSubcategorey })
 
-    } catch (error) {
-        return res.redirect("/")
-    }
-}
 exports.subcategoreyEdit = async (req, res) => {
     try {
         const subId = req.params.id;

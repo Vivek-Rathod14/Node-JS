@@ -16,81 +16,64 @@
             </div>
         </div>
 
-        <div class="">
+        <div class="row">
+            <% if (productData && productData.length> 0) { %>
 
-            <div class="col-12 d-flex ">
-                <div class="col-md-6">
-                    <div class="card">
-                        <form class="form-horizontal" action="/viewBlog" method="get" enctype="multipart/form-data">
-                            <div class="card-body d-flex justify-content-center align-items-center">
-                                <div class="form-group row d-flex justify-content-center align-items-center">
-                                    <label for="lname"
-                                        class="col-sm-3 text-right control-label col-form-label">Search</label>
-                                    <div class="col-sm-9">
-                                        <input type="search" class="form-control" id="lname" placeholder="Search"
-                                            name="search">
-                                    </div>
+                <% productData.map((e)=> { %>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="card h-100 shadow-sm">
 
-                                </div>
-                                <div class="p-0">
-                                    <div class="card-body p-0">
-                                        <button type="submit" class="btn btn-primary">Search</button>
-                                    </div>
-                                </div>
+                            <img src="<%= e.categoreyId && e.categoreyId.img ? '/uploads/' + e.categoreyId.img : '/images/no-img.png' %>"
+                                class="card-img-top">
+
+                            <div class="card-body text-center">
+                                <h5 class="card-title">
+                                    <strong>Category:</strong>
+                                    <%= e.categoreyId.categorey %>
+                                </h5>
+
+                                <p class="card-text text-muted">
+                                    <strong>Sub Category:</strong>
+                                    <%= e.subcategoreyId.subcategorey %>
+                                </p>
+
+                                <p class="text-muted">
+                                    <strong>Extra Category:</strong>
+                                    <%= e.extracategoreyId.extracategorey %>
+                                </p>
+
+                                <p class="text-muted">
+                                    <strong>Quantity:</strong>
+                                    <%= e.quantity %>
+                                </p>
+
+                                <p class="text-muted">
+                                    <strong>Price:</strong>
+                                    <%= e.price %>
+                                </p>
+
+                                <p class="text-muted">
+                                    <strong>Description:</strong>
+                                    <%= e.description %>
+                                </p>
+
+                                <a href="/product/viewProductDelete/<%= e._id %>" class="btn btn-danger btn-sm mt-2">
+                                    Delete
+                                </a>
+                                <a href="/product/editProduct/<%= e._id %>" class="btn btn-warning btn-sm mt-2">
+                                    Edit
+                                </a>
                             </div>
-                        </form>
-                    </div>
-                </div>
 
-
-
-            </div>
-
-            <div class="row">
-                <% if (productData && productData.length> 0) { %>
-
-                    <% productData.map((e)=> { %>
-                        <div class="col-lg-3 col-md-6 mb-4">
-                            <div class="card h-100 shadow-sm">
-
-                           <img src="<%= e.categoreyId && e.categoreyId.img ? '/uploads/' + e.categoreyId.img : '/images/no-img.png' %>" class="card-img-top">
-
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">
-                                        <%= e.categorey %>
-                                    </h5>
-
-                                    <p class="card-text text-muted">
-                                        <%= e.subcategorey %>
-                                    </p>
-
-                                    <p class="text-muted">
-                                        <strong>Category:</strong>
-                                        <%= e.extracategorey %>
-                                    </p>
-
-                                    <p class="text-muted">
-                                        <strong>Author:</strong>
-                                        <%= e.description %>
-                                    </p>
-
-                                    <a href="/viewBlogDelete/<%= e._id %>" class="btn btn-danger btn-sm mt-2">
-                                        Delete
-                                    </a>
-                                    <a href="/editBlog/<%= e._id %>" class="btn btn-warning btn-sm mt-2">
-                                        Edit
-                                    </a>
-                                </div>
-
-                            </div>
                         </div>
-                        <% }) %>
+                    </div>
+                    <% }) %>
 
-                            <% } else { %>
-                                <div class="col-12 text-center">
-                                    <h4>No Blogs Found</h4>
-                                </div>
-                                <% } %>
-            </div>
+                        <% } else { %>
+                            <div class="col-12 text-center">
+                                <h4>No Blogs Found</h4>
+                            </div>
+                            <% } %>
+        </div>
 
-            <%- include('../footer') %>
+        <%- include('../footer') %>
