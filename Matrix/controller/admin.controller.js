@@ -27,7 +27,6 @@ exports.addAdmin = async (req, res) => {
 
         });
 
-
         res.redirect("/admin/view-admin");
 
     } catch (error) {
@@ -38,9 +37,6 @@ exports.addAdmin = async (req, res) => {
 
 exports.addView = async (req, res) => {
     try {
-
-
-
         const viewData = await Admin.find();
         res.render("admin/viewAdmin", { viewData })
 
