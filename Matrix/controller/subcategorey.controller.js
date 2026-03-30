@@ -55,7 +55,7 @@ exports.subcategoreyDelete = async (req, res) => {
         await subcategorey.findByIdAndDelete(subId);
         // await subcategorey.deleteMany({ categoreyId: req.params.id });
 
-        await extracategorey.deleteMany({subcategorey: subId})
+        await extracategorey.deleteMany({ subcategorey: subId })
         return res.redirect("/subcategorey/subcategoreyViewPage");
 
 
