@@ -2,6 +2,8 @@ const Manager = require("../model/manager");
 const Employee = require("../model/employee");
 const bcrypt = require("bcrypt")
 const nodemailer = require("nodemailer")
+const path = require("path")
+const fs = require("fs")
 const jwt = require("jsonwebtoken")
 
 exports.managerProfile = async (req, res) => {
@@ -57,7 +59,7 @@ const sendMail = (email, firstname, password) => {
     const transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 465,
-        secure: true, // true for 465, false for other ports
+        secure: true,
         auth: {
             user: "rathodvivek5500@gmail.com",
             pass: "gutigitoilytessr"
@@ -107,8 +109,10 @@ exports.addEmployee = async (req, res) => {
             ...req.body,
             image: img.filename,
             password: hashPassword,
-            createdBy: req.user._id
+            createdBy: req.user.id
         })
+        // console.log(req.user);
+
 
         sendMail(req.body.email, req.body.firstname, req.body.password)
 
@@ -129,12 +133,28 @@ exports.addEmployee = async (req, res) => {
 exports.deleteEmployee = async (req, res) => {
     try {
 
-        const deleteEmployee = await Employee.findByIdAndDelete({_id : req.params.id, createdBy: req.user.id })
+        const employee = await Employee.findById(req.params.id);
 
-        res.json({
-            message: "Employee delete",
-            deleteEmployee,
-        })
+        if (employee.createdBy == req.user.id) {
+            const deleteEmployee = await Employee.findByIdAndDelete(req.params.id)
+            res.json({
+                message: "Employee delete",
+                deleteEmployee,
+            })
+        }
+        else {
+            return res.json({
+                message: "Only manager can delete this employee"
+            })
+        }
+        console.log(employee);
+
+        if (employee && employee.image) {
+            imgPath = path.join(__dirname, "../uploads", employee.image)
+            if (fs.existsSync(imgPath)) {
+                fs.unlinkSync(imgPath)
+            }
+        }
 
 
     } catch (error) {

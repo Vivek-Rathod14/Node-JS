@@ -13,7 +13,6 @@ exports.login = async (req, res) => {
             })
         }
         const isPasswordValid = await bcrypt.compare(password, manager.password)
-        // const rightPassword = await Manager.findOne({ password: req.body.password }  )
 
 
         if (!isPasswordValid) {
@@ -28,7 +27,7 @@ exports.login = async (req, res) => {
             lastname: manager.lastname,
             email: manager.email,
             role: manager.role,
-        }, "vivekKey7260")
+        }, process.env.JWT_SECRET)
         res.cookie("cookie", token)
 
         res.json({

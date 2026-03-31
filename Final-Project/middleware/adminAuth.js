@@ -61,7 +61,7 @@ exports.loginAdmin = async (req, res) => {
             postion: admin.position,
             email: admin.email,
             role: admin.role,
-        }, "vivekKey7260");
+        }, process.env.JWT_SECRET);
 
         res.cookie("cookie", token);
 

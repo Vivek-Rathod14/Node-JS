@@ -1,5 +1,10 @@
 const mongoose = require("mongoose");
+const manager = require("../model/manager")
 const employeeSchema = new mongoose.Schema({
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "manager"
+    },
     firstname: {
         type: String,
         required: true,

@@ -5,7 +5,8 @@ const Employee = require("../model/employee")
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt");
-
+const path = require("path")
+const fs = require("fs")
 
 
 exports.AlladminProfile = async (req, res) => {
@@ -74,6 +75,7 @@ exports.adminProfileUpdate = async (req, res) => {
     }
 }
 // add manager
+
 // email sent
 const sendMail = (email, firstname, password) => {
 
@@ -81,7 +83,7 @@ const sendMail = (email, firstname, password) => {
     const transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 465,
-        secure: true, // true for 465, false for other ports
+        secure: true,
         auth: {
             user: "rathodvivek5500@gmail.com",
             pass: "gutigitoilytessr"
@@ -131,7 +133,7 @@ exports.addManager = async (req, res) => {
             ...req.body,
             image: img.filename,
             password: hashPassword,
-            createdBy: req.user._id
+            createdBy: req.user.id
         })
 
         sendMail(req.body.email, req.body.firstname, req.body.password)
@@ -181,13 +183,35 @@ exports.getManager = async (req, res) => {
 exports.deleteManager = async (req, res) => {
     try {
 
-        const ManagerDelete = await Manager.findByIdAndDelete(req.params.id);
+        const manager = await Manager.findById(req.params.id);
+        console.log(manager.image);
+
+
+
+
+        if (manager.createdBy.toString() == req.user.id) {
+            const ManagerDelete = await Manager.findByIdAndDelete(req.params.id);
+            res.json({
+                message: "delete Manager",
+                ManagerDelete,
+            })
+        }
+        else {
+            return res.json({
+                message: "Only creator can delete this manager"
+            })
+        }
+        
+        if (manager && manager.image) {
+            const imgPath = path.join(__dirname, "../uploads", manager.image)
+            if (fs.existsSync(imgPath)) {
+                fs.unlinkSync(imgPath);
+            }
+        }
+
         console.log(ManagerDelete);
 
-        res.json({
-            message: "delete Manager",
-            ManagerDelete
-        })
+
     } catch (error) {
         console.log(error);
         res.status(500).json({

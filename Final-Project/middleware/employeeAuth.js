@@ -28,7 +28,7 @@ exports.login = async (req, res) => {
             lastname: employee.lastname,
             email: employee.email,
             role: employee.role,
-        }, "vivekKey7260")
+        }, process.env.JWT_SECRET)
         res.cookie("cookie", token)
 
         res.json({

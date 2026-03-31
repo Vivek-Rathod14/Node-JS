@@ -16,11 +16,11 @@ routes.put("/updateProfile/:id", verify("admin"), adminProfileUpdate);
 
 // add manager
 
-routes.post("/managers", upload.single("image"), verify("admin"), addManager);
+routes.post("/manager", upload.single("image"), verify("admin"), addManager);
 routes.get("/managerss", verify("admin"), getAllManager);
 routes.get("/managers/:id", verify("admin"), getManager);
-routes.delete("/deleteManager/:id", verify("admin"), deleteManager);
-routes.put("/updateManager/:id", verify("admin"), updateManager);
+routes.delete("/deleteManager/:id", verify("admin"),upload.single("image"), deleteManager);
+routes.put("/updateManager/:id", verify("admin"),upload.single("image"), updateManager);
 
 
 // view all employee 
