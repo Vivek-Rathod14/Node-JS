@@ -23,8 +23,6 @@ exports.taskList = async (req, res) => {
     try {
 
         const taskList = await taskModel.find({
-            AdminBy: req.user.id,
-            role: req.user.role
         });
 
         return res.json({
